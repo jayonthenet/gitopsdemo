@@ -4,7 +4,7 @@ metadata:
   annotations:
     app.humanitec.io/definition-id: default-humanitec-ingress
     app.humanitec.io/definition-version-id: c7dcce9b-79d4-4236-bf7c-c3643a01dbed
-    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/deployment: 18331f63e47df9b9
     app.humanitec.io/env-type: gitops
     app.humanitec.io/matching-criteria-id: 9c92a2d495b2258e
     app.humanitec.io/resource-class: default

@@ -4,7 +4,7 @@ metadata:
   annotations:
     app.humanitec.io/definition-id: default-humanitec-base-env
     app.humanitec.io/definition-version-id: 446c0fce-bef9-4048-ba5b-47e2edaf5903
-    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/deployment: 18331f63e47df9b9
     app.humanitec.io/env-type: gitops
     app.humanitec.io/matching-criteria-id: c72e691130b9c896
     app.humanitec.io/resource-class: default

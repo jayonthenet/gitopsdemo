@@ -4,7 +4,7 @@ metadata:
   annotations:
     app.humanitec.io/definition-id: hum-rp-postgres-ex-postgres
     app.humanitec.io/definition-version-id: f213c725-d033-4c3d-992f-d4541d08908d
-    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/deployment: 18331f63e47df9b9
     app.humanitec.io/env-type: gitops
     app.humanitec.io/matching-criteria-id: 9aeeb6f02b0001b4
     app.humanitec.io/resource-class: default
