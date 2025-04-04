@@ -1,0 +1,59 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    app.humanitec.io/definition-id: default-humanitec-workload-res
+    app.humanitec.io/definition-version-id: 018b6a0c-91b8-43aa-b130-5114d0d71d45
+    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/env-type: gitops
+    app.humanitec.io/matching-criteria-id: db70c377f7134da2
+    app.humanitec.io/resource-class: default
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: gitopsdemo
+    app.humanitec.io/env-id: gitops
+    app.humanitec.io/org-id: clearcode
+  name: resource-c57c6856bce5676051c266db154afb929ee938ee
+spec:
+  configMapName: resource-configmap-c57c6856bce5676051c266db154afb929ee938ee
+  dependsOn:
+  - resource-49074837130cc2c44f58b4bac0e019f91fb14cbc
+  - resource-f19cd0e69fc9348211bffbbde6560583ec41c086
+  - resource-fe30d6b14f762cbe1220d36230bcf5b858e99aab
+  driver: builtin://template
+  driverInputs:
+    driver:
+      values:
+        templates:
+          outputs: 'update: []'
+    resource:
+      dependencies:
+      - ${resources["dns.default#modules.quickstart.externals.dns"].guresid}
+      - ${resources["postgres.default#modules.quickstart.externals.db"].guresid}
+      - ${resources["route.default#modules.quickstart.externals.route"].guresid}
+      id: quickstart
+      profile: humanitec/default-module
+      spec:
+        annotations:
+          humanitec.io/managed-by: Score
+          humanitec.io/workload-artefact-name: quickstart
+        containers:
+          hello-world:
+            id: hello-world
+            image: ghcr.io/astromechza/demo-app:latest
+            variables:
+              OVERRIDE_COLOR: '#ababab'
+              OVERRIDE_POSTGRES: postgres://$\{externals.db.username}:$\{externals.db.password}@$\{externals.db.host}:$\{externals.db.port}/$\{externals.db.name}
+        service:
+          ports:
+            www:
+              container_port: 8080
+              protocol: TCP
+              service_port: 8080
+  driverType: humanitec/template
+  guresid: c57c6856bce5676051c266db154afb929ee938ee
+  id: modules.quickstart
+  secretName: resource-secret-c57c6856bce5676051c266db154afb929ee938ee
+  type: workload
+  workloadPatchName: resource-patch-c57c6856bce5676051c266db154afb929ee938ee
+status: {}

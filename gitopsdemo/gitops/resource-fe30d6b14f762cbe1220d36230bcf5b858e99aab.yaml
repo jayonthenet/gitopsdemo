@@ -1,0 +1,47 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    app.humanitec.io/definition-id: default-humanitec-route
+    app.humanitec.io/definition-version-id: 1266f49f-dbc8-4998-bfe1-b2d0f2c31fb8
+    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/env-type: gitops
+    app.humanitec.io/matching-criteria-id: e1ccf5e735011a72
+    app.humanitec.io/resource-class: default
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: gitopsdemo
+    app.humanitec.io/env-id: gitops
+    app.humanitec.io/org-id: clearcode
+  name: resource-fe30d6b14f762cbe1220d36230bcf5b858e99aab
+spec:
+  configMapName: resource-configmap-fe30d6b14f762cbe1220d36230bcf5b858e99aab
+  dependsOn:
+  - resource-49074837130cc2c44f58b4bac0e019f91fb14cbc
+  driver: builtin://template
+  driverInputs:
+    driver:
+      values:
+        templates:
+          init: |
+            serviceName: {{ if regexMatch `modules\.[a-z0-9-]+\.externals` `modules.quickstart.externals.route` -}}
+              {{- index (splitList "." `modules.quickstart.externals.route`) 1 | quote -}}
+            {{- else -}}
+              {{- fail `A route must be added as a private resource dependency. ID: modules.quickstart.externals.route` -}}
+            {{- end }}
+          outputs: |
+            host: {{ .resource.host | quote }}
+            path: {{ .resource.path | quote }}
+            port: {{ .resource.port }}
+            service: {{ .init.serviceName | quote }}
+    resource:
+      host: ${resources["dns.default#modules.quickstart.externals.dns"].outputs.host}
+      path: /
+      port: 8080
+  driverType: humanitec/template
+  guresid: fe30d6b14f762cbe1220d36230bcf5b858e99aab
+  id: modules.quickstart.externals.route
+  secretName: resource-secret-fe30d6b14f762cbe1220d36230bcf5b858e99aab
+  type: route
+  workloadPatchName: resource-patch-fe30d6b14f762cbe1220d36230bcf5b858e99aab
+status: {}

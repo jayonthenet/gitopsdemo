@@ -1,0 +1,121 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Workload
+metadata:
+  annotations:
+    app.humanitec.io/deployment: 18331f4ce4a2a308
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: gitopsdemo
+    app.humanitec.io/env-id: gitops
+    app.humanitec.io/org-id: clearcode
+  name: quickstart
+spec:
+  dependsOnResources:
+  - resource-12982828ccae3d69fbe7d94fa4b0a451a5c6dbd8
+  - resource-f19cd0e69fc9348211bffbbde6560583ec41c086
+  - resource-49074837130cc2c44f58b4bac0e019f91fb14cbc
+  - resource-fe30d6b14f762cbe1220d36230bcf5b858e99aab
+  - resource-c57c6856bce5676051c266db154afb929ee938ee
+  - resource-8cdd059a8df03763e09aa8e93296e311ca7d729f
+  - resource-eac83af98ecdfadde24124543858bf72373bb412
+  - resource-5f7b8acf7e1555c2ca2f4384c1e46f9aa6fe6079
+  manifests:
+  - apiVersion: v1
+    data:
+      OVERRIDE_COLOR: '#ababab'
+    kind: ConfigMap
+    metadata:
+      labels:
+        app.kubernetes.io/instance: quickstart
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: quickstart
+        helm.sh/chart: default-module-1.17.6
+      name: quickstart-configmap-hello-world
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: quickstart
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: quickstart
+        helm.sh/chart: default-module-1.17.6
+      name: quickstart
+    spec:
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: quickstart
+          app.kubernetes.io/name: quickstart
+      template:
+        metadata:
+          annotations:
+            checksum/config: 79ee9554d9eec6840966c70e748c10fb769e16028467dbff1c48ba3f7f0b9d0e
+            humanitec.io/managed-by: Score
+            humanitec.io/workload-artefact-name: quickstart
+          labels:
+            app.kubernetes.io/instance: quickstart
+            app.kubernetes.io/name: quickstart
+        spec:
+          containers:
+          - env:
+            - name: _MODULES.QUICKSTART.EXTERNALS.DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: resource-secret-f19cd0e69fc9348211bffbbde6560583ec41c086
+            - name: _MODULES.QUICKSTART.EXTERNALS.DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: resource-secret-f19cd0e69fc9348211bffbbde6560583ec41c086
+            - name: _MODULES.QUICKSTART.EXTERNALS.DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: resource-configmap-f19cd0e69fc9348211bffbbde6560583ec41c086
+            - name: _MODULES.QUICKSTART.EXTERNALS.DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: port
+                  name: resource-configmap-f19cd0e69fc9348211bffbbde6560583ec41c086
+            - name: _MODULES.QUICKSTART.EXTERNALS.DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: name
+                  name: resource-configmap-f19cd0e69fc9348211bffbbde6560583ec41c086
+            - name: OVERRIDE_POSTGRES
+              value: postgres://$(_MODULES.QUICKSTART.EXTERNALS.DB_USERNAME):$(_MODULES.QUICKSTART.EXTERNALS.DB_PASSWORD)@$(_MODULES.QUICKSTART.EXTERNALS.DB_HOST):$(_MODULES.QUICKSTART.EXTERNALS.DB_PORT)/$(_MODULES.QUICKSTART.EXTERNALS.DB_NAME)
+            envFrom:
+            - configMapRef:
+                name: quickstart-configmap-hello-world
+            image: ghcr.io/astromechza/demo-app:latest
+            name: hello-world
+            resources:
+              limits:
+                cpu: 250m
+                memory: 256Mi
+              requests:
+                cpu: 25m
+                memory: 64Mi
+          imagePullSecrets: []
+          serviceAccount: ""
+          serviceAccountName: ""
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app.kubernetes.io/instance: quickstart
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: quickstart
+        helm.sh/chart: default-module-1.17.6
+      name: quickstart
+    spec:
+      ports:
+      - name: port-www
+        port: 8080
+        protocol: TCP
+        targetPort: 8080
+      selector:
+        app.kubernetes.io/instance: quickstart
+        app.kubernetes.io/name: quickstart
+      type: ClusterIP
+status: {}

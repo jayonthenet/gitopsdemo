@@ -1,0 +1,32 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    app.humanitec.io/definition-id: default-humanitec-base-env
+    app.humanitec.io/definition-version-id: 446c0fce-bef9-4048-ba5b-47e2edaf5903
+    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/env-type: gitops
+    app.humanitec.io/matching-criteria-id: c72e691130b9c896
+    app.humanitec.io/resource-class: default
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: gitopsdemo
+    app.humanitec.io/env-id: gitops
+    app.humanitec.io/org-id: clearcode
+  name: resource-5f7b8acf7e1555c2ca2f4384c1e46f9aa6fe6079
+spec:
+  configMapName: resource-configmap-5f7b8acf7e1555c2ca2f4384c1e46f9aa6fe6079
+  dependsOn: []
+  driver: builtin://template
+  driverInputs:
+    driver:
+      values: {}
+    resource:
+      id: /orgs/clearcode/apps/gitopsdemo/envs/gitops
+  driverType: humanitec/template
+  guresid: 5f7b8acf7e1555c2ca2f4384c1e46f9aa6fe6079
+  id: base-env
+  secretName: resource-secret-5f7b8acf7e1555c2ca2f4384c1e46f9aa6fe6079
+  type: base-env
+  workloadPatchName: resource-patch-5f7b8acf7e1555c2ca2f4384c1e46f9aa6fe6079
+status: {}

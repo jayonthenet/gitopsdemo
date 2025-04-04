@@ -1,0 +1,30 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    app.humanitec.io/definition-id: default-humanitec-tls-cert
+    app.humanitec.io/definition-version-id: 98da1e0b-4b3c-444d-ab45-9879f3f8df83
+    app.humanitec.io/deployment: 18331f4ce4a2a308
+    app.humanitec.io/env-type: gitops
+    app.humanitec.io/matching-criteria-id: 7d9259f49d2751ca
+    app.humanitec.io/resource-class: default
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: gitopsdemo
+    app.humanitec.io/env-id: gitops
+    app.humanitec.io/org-id: clearcode
+  name: resource-12982828ccae3d69fbe7d94fa4b0a451a5c6dbd8
+spec:
+  configMapName: resource-configmap-12982828ccae3d69fbe7d94fa4b0a451a5c6dbd8
+  dependsOn: []
+  driver: https://drivers.humanitec.io/newapp-io-tls
+  driverInputs:
+    driver:
+      values: {}
+  driverType: humanitec/newapp-io-tls
+  guresid: 12982828ccae3d69fbe7d94fa4b0a451a5c6dbd8
+  id: modules.quickstart.externals.dns
+  secretName: resource-secret-12982828ccae3d69fbe7d94fa4b0a451a5c6dbd8
+  type: tls-cert
+  workloadPatchName: resource-patch-12982828ccae3d69fbe7d94fa4b0a451a5c6dbd8
+status: {}
