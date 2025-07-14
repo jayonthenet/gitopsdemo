@@ -1,0 +1,32 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    app.humanitec.io/definition-id: default-humanitec-dns
+    app.humanitec.io/definition-version-id: 9a2f5758-82c7-4421-8ccd-ae10972364c3
+    app.humanitec.io/deployment: 1852181e2388b973
+    app.humanitec.io/env-type: gitops
+    app.humanitec.io/matching-criteria-id: 5d52957634e8c6df
+    app.humanitec.io/resource-class: default
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: testy
+    app.humanitec.io/env-id: testy
+    app.humanitec.io/org-id: clearcode
+  name: resource-fb6eeb8834dffba7326cd288a4497788acdac7a6
+spec:
+  configMapName: resource-configmap-fb6eeb8834dffba7326cd288a4497788acdac7a6
+  dependsOn: []
+  driver: https://drivers.humanitec.io/newapp-io-dns
+  driverInputs:
+    driver:
+      values: {}
+    resource:
+      ip_address: 34.107.16.35
+  driverType: humanitec/newapp-io-dns
+  guresid: fb6eeb8834dffba7326cd288a4497788acdac7a6
+  id: modules.quickstart.externals.dns
+  secretName: resource-secret-fb6eeb8834dffba7326cd288a4497788acdac7a6
+  type: dns
+  workloadPatchName: resource-patch-fb6eeb8834dffba7326cd288a4497788acdac7a6
+status: {}

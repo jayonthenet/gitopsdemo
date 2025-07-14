@@ -1,0 +1,60 @@
+apiVersion: humanitec.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    app.humanitec.io/definition-id: default-humanitec-deployment
+    app.humanitec.io/definition-version-id: 7a9edcfc-3668-49f0-a54e-2ed6a66db608
+    app.humanitec.io/deployment: 1852181e2388b973
+    app.humanitec.io/env-type: gitops
+    app.humanitec.io/matching-criteria-id: 6368130b1109371c
+    app.humanitec.io/resource-class: default
+  creationTimestamp: null
+  labels:
+    app.humanitec.io/app-id: testy
+    app.humanitec.io/env-id: testy
+    app.humanitec.io/org-id: clearcode
+  name: resource-83bb761b4aa084665ce83e4f6ee73102a7f8c2fb
+spec:
+  configMapName: resource-configmap-83bb761b4aa084665ce83e4f6ee73102a7f8c2fb
+  dependsOn:
+  - resource-0a74846f9b96bdd40ad6c98ddf411cb92d72f4be
+  - resource-dcdeddf5fa9891449c00cbf867a36afb05cd1e7d
+  driver: builtin://template
+  driverInputs:
+    driver:
+      values:
+        templates: {}
+    resource:
+      id: quickstart
+      profile: humanitec/default-module
+      spec:
+        annotations:
+          humanitec.io/managed-by: Score
+          humanitec.io/workload-artefact-name: quickstart
+        containers:
+          hello-world:
+            id: hello-world
+            image: ghcr.io/astromechza/demo-app:latest
+            variables:
+              OVERRIDE_COLOR: '#ababab'
+              OVERRIDE_POSTGRES: postgres://$\{externals.db.username}:$\{externals.db.password}@$\{externals.db.host}:$\{externals.db.port}/$\{externals.db.name}
+        service:
+          ports:
+            www:
+              container_port: 8080
+              protocol: TCP
+              service_port: 8080
+      substitutions:
+        externals.db.host: ${resources["postgres.default#modules.quickstart.externals.db"].refs.host}
+        externals.db.name: ${resources["postgres.default#modules.quickstart.externals.db"].refs.name}
+        externals.db.password: ${resources["postgres.default#modules.quickstart.externals.db"].refs.password}
+        externals.db.port: ${resources["postgres.default#modules.quickstart.externals.db"].refs.port}
+        externals.db.username: ${resources["postgres.default#modules.quickstart.externals.db"].refs.username}
+      update: ${resources["workload.default#modules.quickstart"].values}
+  driverType: humanitec/template
+  guresid: 83bb761b4aa084665ce83e4f6ee73102a7f8c2fb
+  id: modules.quickstart
+  secretName: resource-secret-83bb761b4aa084665ce83e4f6ee73102a7f8c2fb
+  type: deployment
+  workloadPatchName: resource-patch-83bb761b4aa084665ce83e4f6ee73102a7f8c2fb
+status: {}
